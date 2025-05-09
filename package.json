@@ -1,14 +1,21 @@
 {
   "name": "roda-empat-automotive",
+  "description": "Build website catalog cars with scraping data using bun server and astro react js ",
   "type": "module",
   "version": "0.0.1",
+  "workspaces": [
+    "apps/**",
+    "packages/**"
+  ],
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "concurrently -n 'backend,frontend' -c '#007755,#2f6da3' 'cd apps/backend && bun dev' 'cd apps/frontend && bun dev'",
+    "build": "concurrently -n 'backend,frontend' -c '#007755,#2f6da3' 'cd apps/backend && bun --bun run build' 'cd apps/frontend && bun --bun run build'",
+    "clean": "concurrently -n 'backend,frontend' -c '#007755,#2f6da3' 'cd apps/backend && bun clean' 'cd apps/frontend && bun clean'",
+    "test": "concurrently -n 'backend,frontend' -c '#007755,#2f6da3' 'cd apps/backend && bun test' 'cd apps/frontend && bun test'",
+    "lint": "bun lint",
+    "typecheck": "bun tsc"
   },
-  "dependencies": {
-    "astro": "^5.7.12"
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
