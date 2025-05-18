@@ -6,22 +6,23 @@
   "main": "./src/index.ts",
   "module": "src/index.ts",
   "scripts": {
-    "start": "bun run src/index.ts --hot",
-    "dev": "bun run src/index.ts --watch",
+    "start": "bun --hot run src/index.ts",
+    "dev": "bun --watch run src/index.ts",
     "clean": "rm -rf dist node_modules && bun pm cache rm && bun install",
     "test": "bun test --watch",
     "build": "bun build src/index.ts --outdir dist"
   },
   "dependencies": {
-    "hono": "^4.7.8",
-    "dotenv": "^16.5.0",
     "cheerio": "^1.0.0",
-    "puppeteer": "^24.8.2",
-    "drizzle-orm": "^0.43.1"
+    "hono": "^4.7.8",
+    "lodash": "^4.17.21",
+    "p-limit": "^6.2.0",
+    "node-cron": "^4.0.5"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "drizzle-kit": "^0.31.1",
+    "@types/lodash": "^4.17.16",
+    "@types/node-cron": "^3.0.11",
     "typescript": "^5.8.3"
   }
 }
