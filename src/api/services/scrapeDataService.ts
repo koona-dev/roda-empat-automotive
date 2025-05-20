@@ -4,10 +4,9 @@
 const cheerio = require("cheerio");
 import pLimit from "p-limit";
 import { chunk } from "lodash";
-import { setTimeout } from "timers/promises";
 
 // MODELS
-import * as c from "../cars";
+import * as c from "./cars";
 
 /**
  * SCRRAPING SERVICE
@@ -64,7 +63,7 @@ export default class ScrapingDataService {
     const data = await response.text();
     const $ = cheerio.load(data);
 
-    setTimeout(timeout, () => {
+    Bun.sleep(timeout).then(() => {
       controller.abort();
     });
 
@@ -297,7 +296,7 @@ export default class ScrapingDataService {
             // Get models amount
             amountData.models += models.length;
 
-            await setTimeout(8000);
+            await Bun.sleep(8000);
 
             // Fetch generation list
             const modelsWithGen = await Promise.all(
@@ -305,7 +304,7 @@ export default class ScrapingDataService {
                 const gens = await this._scrapeCarGens(model.link);
                 amountData.gen += gens.length;
 
-                await setTimeout(6000);
+                await Bun.sleep(6000);
 
                 // Fetch cars list
                 const gensWithCars = await Promise.all(
@@ -313,7 +312,7 @@ export default class ScrapingDataService {
                     const carsFromGen = await this._scrapeCarsFromGen(gen.link);
                     amountData.cars += carsFromGen.length;
 
-                    await setTimeout(4000);
+                    await Bun.sleep(4000);
 
                     return { ...gen, cars: carsFromGen };
                   })
@@ -326,11 +325,11 @@ export default class ScrapingDataService {
           });
         })
       );
-      
+
       result.push(...chunkResult);
 
       // Delay antar chunk agar tidak overload ke server target
-      await setTimeout(this.BATCH_DELAY);
+      await Bun.sleep(this.BATCH_DELAY);
     }
 
     return { brands: brandData, resource: result, amountData };
