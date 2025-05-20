@@ -1,34 +1,43 @@
+/**
+ * DECLARE PACKAGES
+ **/
 const cheerio = require("cheerio");
 import pLimit from "p-limit";
 import { chunk } from "lodash";
 import { setTimeout } from "timers/promises";
 
+// MODELS
 import * as c from "../cars";
 
+/**
+ * SCRRAPING SERVICE
+ **/
 export default class ScrapingDataService {
   private BASEPATH = "https://www.auto-data.net";
   private CONCURRENCY_LIMIT = 3;
-  private BATCH_DELAY = 5000; // 5 detik antar chunk
-  private BATCH_SIZE = 10;
+  private BATCH_DELAY = 10000; // 5 detik antar chunk
+  private BATCH_SIZE = 10; //chunk batch
 
-  // Async which scrapes the data
+  /**
+   * Start to scrape data and generate file json
+   **/
   public async start(): Promise<c.ScrapeLog> {
-    // Fetch HTML of the page we want to scrape
-
     try {
       const result = await this._scrapeAllCars();
 
-      // // Write c ountries array in cars.json file
+      // Write brands array in brands.json file
       const writeBrandFile = await Bun.write(
         "brands.json",
         JSON.stringify(result.brands, null, 2)
       );
 
+      // Write cars array in cars.json file
       const writeCarsFile = await Bun.write(
         "cars.json",
         JSON.stringify(result.resource, null, 2)
       );
 
+      // check if write json file is successfully
       if (!writeCarsFile || !writeBrandFile) {
         result.message = "Failed to written data to file";
       }
@@ -36,11 +45,15 @@ export default class ScrapingDataService {
       result.message = "Successfully written data to file";
       return result;
     } catch (err: any) {
+      // throw error when failed to scraping data
       console.log(`Failed to written data to file. Throw error : ${err}`);
       throw err;
     }
   }
 
+  /**
+   * Fetch and handle url data from web
+   **/
   private async _fetchData(url: string, element: string): Promise<any> {
     const timeout = 10000; // Timeout in milliseconds
     const controller = new AbortController();
@@ -58,7 +71,9 @@ export default class ScrapingDataService {
     return $(element);
   }
 
-  // Helper: konversi teks menjadi camelCase key
+  /**
+   * generate field string car spec to camelCase to be used as key in json
+   **/
   private _toCamelCaseKey(text: string): string {
     return text
       .toLowerCase()
@@ -69,22 +84,28 @@ export default class ScrapingDataService {
       .join("");
   }
 
+  /**
+   * Method for scraping all brands section in website
+   **/
   private async _scrapeAllBrands(): Promise<c.Vehicle[]> {
+    // fetch url and element in brands page
     const $carBrandItems = await this._fetchData(
-      `${this.BASEPATH}/en`,
-      ".markite > a.marki_blok"
+      `${this.BASEPATH}/en/allbrands`,
+      ".brands > a.marki_blok"
     );
 
+    // Loop brand list from element anchor
     return $carBrandItems.toArray().map((brand: any) => {
       const $brand = cheerio.load(brand);
 
       const brandLink = $brand("a.marki_blok").attr("href");
       const brandImgSrc = $brand("img").attr("src");
 
+      // Insert all props to models
       return {
         brand: {
           title: $brand("strong").text(),
-          img: this.BASEPATH + brandImgSrc,
+          logo: this.BASEPATH + brandImgSrc,
           link: this.BASEPATH + brandLink,
         },
         models: [],
@@ -92,15 +113,17 @@ export default class ScrapingDataService {
     });
   }
 
-  // Scrape seluruh model dari satu brand
+  /**
+   * Scrape all models every brands
+   **/
   private async _scrapeCarModels(brandLink: string): Promise<c.CarModel[]> {
-    // Loop through each car model and fetch data
-
+    // Fetch all model data based on link and selected element
     const $carModelItems = await this._fetchData(
       brandLink,
       "ul.modelite > li.letter"
     );
 
+    // Loop through each car model and fetch data
     return $carModelItems.toArray().map((model: any) => {
       const $model = cheerio.load(model);
       return {
@@ -112,18 +135,21 @@ export default class ScrapingDataService {
     });
   }
 
-  // Scrape seluruh generasi dari satu model
+  /**
+   * Scrape all generation every models car
+   **/
   private async _scrapeCarGens(modelLink: string): Promise<c.CarGen[]> {
-    // Loop through each car generation
-
+    // Fetch all genwith model link and trigger element
     const $carGenItems = await this._fetchData(
       modelLink,
       "table.generr > tbody > tr.f"
     );
 
+    // Loop through each car generation
     return $carGenItems.toArray().map((gen: any) => {
       const $gen = cheerio.load(gen);
 
+      // Insert all props in element to models return to array
       const gens = {
         img: this.BASEPATH + $gen("th.i > a > img").attr("src"),
         link: this.BASEPATH + $gen("th.i > a").attr("href"),
@@ -139,36 +165,49 @@ export default class ScrapingDataService {
     });
   }
 
-  // Loop through each car generation and fetch data
-
-  // Scrape mobil dari satu generasi
+  /**
+   * Scrape all Cars every Generation
+   **/
   private async _scrapeCarsFromGen(genLink: string): Promise<c.CarSpec[]> {
+    // Fetch all data generation in element with link and selected element
     const $carItems = await this._fetchData(
       genLink,
       "table.carlist > tbody > tr.i"
     );
+
+    /**
+     *  This process must use p-limit,
+     * chunk, and delay to avoid
+     * server crash cause overload
+     **/
     const cars: c.CarSpec[] = await Promise.all<c.CarSpec>(
+      // Loop through each car generation and fetch data
       $carItems.toArray().map(async (car: any) => {
         const $carEl = cheerio.load(car);
         const carItemLink: string = $carEl("th.i a").attr("href");
-        if (!carItemLink) return null;
 
+        if (!carItemLink) return null;
+        // After looping cars in gen details, so we gonna direct link into car specs details
         const carSpecList = await this._scrapeCarSpec(carItemLink);
         return carSpecList;
       })
     );
-    // console.dir(cars[0].attrs);
+
     return cars.filter(Boolean) as c.CarSpec[];
   }
 
-  // Scrape detail spesifikasi mobil
+  /**
+   * Scrape all car specification on car details
+   **/
   private async _scrapeCarSpec(link: string): Promise<c.CarSpec> {
+    // DECLARE ALL PROPS ELEMENT
     const $carSpecDetails = await this._fetchData(this.BASEPATH + link, "body");
     const photos: string[] = [];
     const title = $carSpecDetails.find("h1").text();
     const imgMain = $carSpecDetails.find("img.inspecs").attr("src");
     if (imgMain) photos.push(this.BASEPATH + imgMain);
 
+    // Loop image gallery
     $carSpecDetails
       .find(".imagescar > img")
       .toArray()
@@ -180,10 +219,12 @@ export default class ScrapingDataService {
     const attrs: Record<string, Record<string, any>> = {};
     let currentSection = "";
 
+    // Loop specification field
     $carSpecDetails
       .find("table.cardetailsout > tbody > tr")
       .toArray()
       .forEach((row: any) => {
+        // Get all header every specification
         const $row = cheerio.load(row);
         const newSection = $row("tr.no th.no strong.car").attr("id");
         if (newSection) {
@@ -191,8 +232,10 @@ export default class ScrapingDataService {
           attrs[currentSection] = {};
           return;
         }
-
+        // Get all key field specification
         const th = $row("tr").not(".no").find("th").text();
+
+        // Get all value field specification
         const td = $row("tr")
           .not(".no")
           .find("td")
@@ -202,6 +245,7 @@ export default class ScrapingDataService {
           .trim();
         const thKey = this._toCamelCaseKey(th);
 
+        // Insert evrey field into object models
         if (thKey && td && currentSection) {
           attrs[currentSection][thKey] = td;
         }
@@ -210,38 +254,14 @@ export default class ScrapingDataService {
     return { title, photos, attrs };
   }
 
-  // Main scraping
-  // private async _scrapeAllCars(): Promise<c.Vehicle[]> {
-  //   const cars = await this._scrapeAllBrands();
-
-  //   const enrichedCars = await Promise.all(
-  //     cars.map(async (car) => {
-  //       const models = await this._scrapeCarModels(car.brand.link);
-
-  //       const modelsWithGen = await Promise.all(
-  //         models.map(async (model) => {
-  //           const gens = await this._scrapeCarGens(model.link);
-
-  //           const gensWithCars = await Promise.all(
-  //             gens.map(async (gen) => {
-  //               const carsFromGen = await this._scrapeCarsFromGen(gen.link);
-  //               return { ...gen, cars: carsFromGen };
-  //             })
-  //           );
-
-  //           return { ...model, gen: gensWithCars };
-  //         })
-  //       );
-
-  //       return { ...car, models: modelsWithGen };
-  //     })
-  //   );
-
-  //   return enrichedCars;
-  // }
-
+  /**
+   * Scrape all flow process every section data
+   **/
   private async _scrapeAllCars(): Promise<c.ScrapeLog> {
+    // Set limit concurency when transfer data
     const limit = pLimit(this.CONCURRENCY_LIMIT); // Maksimum 3 request berjalan bersamaan
+
+    // DECLARE ALL COMPONENTS
     let amountData: {
       brands: number;
       models: number;
@@ -254,35 +274,46 @@ export default class ScrapingDataService {
       cars: 0,
     };
     const brandData: c.CarBrand[] = [];
-
     const cars = await this._scrapeAllBrands();
-    const carChunks = chunk(cars, this.BATCH_SIZE);
 
+    // Set chunk for grouping flow into batch
+    const carChunks = chunk(cars, this.BATCH_SIZE);
+    // Get brands data length
     amountData.brands = cars.length;
 
     const result: c.Vehicle[] = [];
 
+    // Loop every batch chunk
     for (const chunk of carChunks) {
+      // Fetch all promise data
       const chunkResult = await Promise.all(
+        // Loop list cars
         chunk.map((car: c.Vehicle) => {
-          brandData.push(car.brand);
-
+          // Give limit every process as much as 3 process
           return limit(async () => {
+            // Fetch model list
             const models = await this._scrapeCarModels(car.brand.link);
-            amountData.models = models.length;
-            await setTimeout(1000);
+            brandData.push(car.brand);
+            // Get models amount
+            amountData.models += models.length;
 
+            await setTimeout(8000);
+
+            // Fetch generation list
             const modelsWithGen = await Promise.all(
               models.map(async (model: c.CarModel) => {
                 const gens = await this._scrapeCarGens(model.link);
-                amountData.gen = gens.length;
-                await setTimeout(1000);
+                amountData.gen += gens.length;
 
+                await setTimeout(6000);
+
+                // Fetch cars list
                 const gensWithCars = await Promise.all(
                   gens.map(async (gen: c.CarGen) => {
                     const carsFromGen = await this._scrapeCarsFromGen(gen.link);
-                    amountData.cars = carsFromGen.length;
-                    await setTimeout(500);
+                    amountData.cars += carsFromGen.length;
+
+                    await setTimeout(4000);
 
                     return { ...gen, cars: carsFromGen };
                   })
@@ -295,6 +326,7 @@ export default class ScrapingDataService {
           });
         })
       );
+      
       result.push(...chunkResult);
 
       // Delay antar chunk agar tidak overload ke server target
@@ -302,45 +334,5 @@ export default class ScrapingDataService {
     }
 
     return { brands: brandData, resource: result, amountData };
-
-    // return enrichedCars;
   }
-
-  // private async _scrapeAllCars(): Promise<c.Vehicle[]> {
-  //   const cars = await this._scrapeAllBrands();
-  //   const limit = pLimit(3); // Maksimum 3 request berjalan bersamaan
-
-  //   const carChunks = this.chunkArray(cars, 5); // 5 mobil sekaligus
-
-  //   const result: c.Vehicle[] = [];
-
-  //   for (const chunk of carChunks) {
-  //     const chunkResult = await Promise.all(
-  //       chunk.map((car: c.Vehicle) =>
-  //         limit(async () => {
-  //           car.models = await this._scrapeCarModels(car.brand.link);
-
-  //           for (const model of car.models) {
-  //             await setTimeout(500); // Delay kecil antar model untuk amankan scrape
-  //             model.gen = await this._scrapeCarGens(model.link);
-
-  //             for (const gen of model.gen) {
-  //               await setTimeout(300); // Delay antar gen untuk hindari blocking
-  //               gen.cars = await this._scrapeCarsFromGen(gen.link);
-  //             }
-  //           }
-
-  //           return car;
-  //         })
-  //       )
-  //     );
-
-  //     result.push(...chunkResult);
-
-  //     // Delay antar chunk agar tidak overload ke server target
-  //     await setTimeout(1000);
-  //   }
-
-  //   return result;
-  // }
 }

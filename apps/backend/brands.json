@@ -1,0 +1,352 @@
+[
+  {
+    "title": "Acura",
+    "img": "https://www.auto-data.net/img/logos/Acura.png",
+    "link": "https://www.auto-data.net/en/acura-brand-6"
+  },
+  {
+    "title": "Alfa Romeo",
+    "img": "https://www.auto-data.net/img/logos/Alfa_Romeo.png",
+    "link": "https://www.auto-data.net/en/alfa-romeo-brand-11"
+  },
+  {
+    "title": "Alpina",
+    "img": "https://www.auto-data.net/img/logos/Alpina.png",
+    "link": "https://www.auto-data.net/en/alpina-brand-16"
+  },
+  {
+    "title": "Aston Martin",
+    "img": "https://www.auto-data.net/img/logos/Aston_Martin.png",
+    "link": "https://www.auto-data.net/en/aston-martin-brand-36"
+  },
+  {
+    "title": "Audi",
+    "img": "https://www.auto-data.net/img/logos/Audi.png",
+    "link": "https://www.auto-data.net/en/audi-brand-41"
+  },
+  {
+    "title": "Bentley",
+    "img": "https://www.auto-data.net/img/logos/Bentley.png",
+    "link": "https://www.auto-data.net/en/bentley-brand-66"
+  },
+  {
+    "title": "BMW",
+    "img": "https://www.auto-data.net/img/logos/BMW.png",
+    "link": "https://www.auto-data.net/en/bmw-brand-86"
+  },
+  {
+    "title": "Bugatti",
+    "img": "https://www.auto-data.net/img/logos/Bugatti.png",
+    "link": "https://www.auto-data.net/en/bugatti-brand-106"
+  },
+  {
+    "title": "BYD",
+    "img": "https://www.auto-data.net/img/logos/BYD.png",
+    "link": "https://www.auto-data.net/en/byd-brand-116"
+  },
+  {
+    "title": "Cadillac",
+    "img": "https://www.auto-data.net/img/logos/Cadillac.png",
+    "link": "https://www.auto-data.net/en/cadillac-brand-121"
+  },
+  {
+    "title": "Chevrolet",
+    "img": "https://www.auto-data.net/img/logos/Chevrolet.png",
+    "link": "https://www.auto-data.net/en/chevrolet-brand-156"
+  },
+  {
+    "title": "Chrysler",
+    "img": "https://www.auto-data.net/img/logos/Chrysler.png",
+    "link": "https://www.auto-data.net/en/chrysler-brand-161"
+  },
+  {
+    "title": "Citroen",
+    "img": "https://www.auto-data.net/img/logos/Citroen.png",
+    "link": "https://www.auto-data.net/en/citroen-brand-166"
+  },
+  {
+    "title": "Cupra",
+    "img": "https://www.auto-data.net/img/logos/Cupra.png",
+    "link": "https://www.auto-data.net/en/cupra-brand-256"
+  },
+  {
+    "title": "Dacia",
+    "img": "https://www.auto-data.net/img/logos/Dacia.png",
+    "link": "https://www.auto-data.net/en/dacia-brand-181"
+  },
+  {
+    "title": "Daewoo",
+    "img": "https://www.auto-data.net/img/logos/Daewoo.png",
+    "link": "https://www.auto-data.net/en/daewoo-brand-191"
+  },
+  {
+    "title": "Daihatsu",
+    "img": "https://www.auto-data.net/img/logos/Daihatsu.png",
+    "link": "https://www.auto-data.net/en/daihatsu-brand-2"
+  },
+  {
+    "title": "Dodge",
+    "img": "https://www.auto-data.net/img/logos/Dodge.png",
+    "link": "https://www.auto-data.net/en/dodge-brand-32"
+  },
+  {
+    "title": "DS",
+    "img": "https://www.auto-data.net/img/logos/DS.png",
+    "link": "https://www.auto-data.net/en/ds-brand-198"
+  },
+  {
+    "title": "Ferrari",
+    "img": "https://www.auto-data.net/img/logos/Ferrari.png",
+    "link": "https://www.auto-data.net/en/ferrari-brand-62"
+  },
+  {
+    "title": "Fiat",
+    "img": "https://www.auto-data.net/img/logos/Fiat.png",
+    "link": "https://www.auto-data.net/en/fiat-brand-67"
+  },
+  {
+    "title": "Ford",
+    "img": "https://www.auto-data.net/img/logos/Ford.png",
+    "link": "https://www.auto-data.net/en/ford-brand-72"
+  },
+  {
+    "title": "Genesis",
+    "img": "https://www.auto-data.net/img/logos/Genesis.png",
+    "link": "https://www.auto-data.net/en/genesis-brand-202"
+  },
+  {
+    "title": "GMC",
+    "img": "https://www.auto-data.net/img/logos/GMC.png",
+    "link": "https://www.auto-data.net/en/gmc-brand-97"
+  },
+  {
+    "title": "Great Wall",
+    "img": "https://www.auto-data.net/img/logos/Great_Wall.png",
+    "link": "https://www.auto-data.net/en/great-wall-brand-107"
+  },
+  {
+    "title": "Haval",
+    "img": "https://www.auto-data.net/img/logos/Haval.png",
+    "link": "https://www.auto-data.net/en/haval-brand-214"
+  },
+  {
+    "title": "Honda",
+    "img": "https://www.auto-data.net/img/logos/Honda.png",
+    "link": "https://www.auto-data.net/en/honda-brand-127"
+  },
+  {
+    "title": "Hongqi",
+    "img": "https://www.auto-data.net/img/logos/Hongqi.png",
+    "link": "https://www.auto-data.net/en/hongqi-brand-296"
+  },
+  {
+    "title": "Hummer",
+    "img": "https://www.auto-data.net/img/logos/Hummer.png",
+    "link": "https://www.auto-data.net/en/hummer-brand-137"
+  },
+  {
+    "title": "Hyundai",
+    "img": "https://www.auto-data.net/img/logos/Hyundai.png",
+    "link": "https://www.auto-data.net/en/hyundai-brand-147"
+  },
+  {
+    "title": "Infiniti",
+    "img": "https://www.auto-data.net/img/logos/Infiniti.png",
+    "link": "https://www.auto-data.net/en/infiniti-brand-152"
+  },
+  {
+    "title": "Jaguar",
+    "img": "https://www.auto-data.net/img/logos/Jaguar.png",
+    "link": "https://www.auto-data.net/en/jaguar-brand-3"
+  },
+  {
+    "title": "Jeep",
+    "img": "https://www.auto-data.net/img/logos/Jeep.png",
+    "link": "https://www.auto-data.net/en/jeep-brand-8"
+  },
+  {
+    "title": "Kia",
+    "img": "https://www.auto-data.net/img/logos/Kia.png",
+    "link": "https://www.auto-data.net/en/kia-brand-23"
+  },
+  {
+    "title": "Koenigsegg",
+    "img": "https://www.auto-data.net/img/logos/Koenigsegg.png",
+    "link": "https://www.auto-data.net/en/koenigsegg-brand-28"
+  },
+  {
+    "title": "Lada",
+    "img": "https://www.auto-data.net/img/logos/Lada.png",
+    "link": "https://www.auto-data.net/en/lada-brand-140"
+  },
+  {
+    "title": "Lamborghini",
+    "img": "https://www.auto-data.net/img/logos/Lamborghini.png",
+    "link": "https://www.auto-data.net/en/lamborghini-brand-38"
+  },
+  {
+    "title": "Lancia",
+    "img": "https://www.auto-data.net/img/logos/Lancia.png",
+    "link": "https://www.auto-data.net/en/lancia-brand-43"
+  },
+  {
+    "title": "Land Rover",
+    "img": "https://www.auto-data.net/img/logos/Land_Rover.png",
+    "link": "https://www.auto-data.net/en/land-rover-brand-48"
+  },
+  {
+    "title": "Lexus",
+    "img": "https://www.auto-data.net/img/logos/Lexus.png",
+    "link": "https://www.auto-data.net/en/lexus-brand-58"
+  },
+  {
+    "title": "Lotus",
+    "img": "https://www.auto-data.net/img/logos/Lotus.png",
+    "link": "https://www.auto-data.net/en/lotus-brand-78"
+  },
+  {
+    "title": "Maserati",
+    "img": "https://www.auto-data.net/img/logos/Maserati.png",
+    "link": "https://www.auto-data.net/en/maserati-brand-108"
+  },
+  {
+    "title": "Mazda",
+    "img": "https://www.auto-data.net/img/logos/Mazda.png",
+    "link": "https://www.auto-data.net/en/mazda-brand-118"
+  },
+  {
+    "title": "McLaren",
+    "img": "https://www.auto-data.net/img/logos/McLaren.png",
+    "link": "https://www.auto-data.net/en/mclaren-brand-123"
+  },
+  {
+    "title": "Mercedes-Benz",
+    "img": "https://www.auto-data.net/img/logos/Mercedes-Benz.png",
+    "link": "https://www.auto-data.net/en/mercedes-benz-brand-138"
+  },
+  {
+    "title": "MG",
+    "img": "https://www.auto-data.net/img/logos/MG.png",
+    "link": "https://www.auto-data.net/en/mg-brand-153"
+  },
+  {
+    "title": "Mini",
+    "img": "https://www.auto-data.net/img/logos/Mini.png",
+    "link": "https://www.auto-data.net/en/mini-brand-168"
+  },
+  {
+    "title": "Mitsubishi",
+    "img": "https://www.auto-data.net/img/logos/Mitsubishi.png",
+    "link": "https://www.auto-data.net/en/mitsubishi-brand-173"
+  },
+  {
+    "title": "NIO",
+    "img": "https://www.auto-data.net/img/logos/NIO.png",
+    "link": "https://www.auto-data.net/en/nio-brand-295"
+  },
+  {
+    "title": "Nissan",
+    "img": "https://www.auto-data.net/img/logos/Nissan.png",
+    "link": "https://www.auto-data.net/en/nissan-brand-4"
+  },
+  {
+    "title": "Opel",
+    "img": "https://www.auto-data.net/img/logos/Opel.png",
+    "link": "https://www.auto-data.net/en/opel-brand-19"
+  },
+  {
+    "title": "Pagani",
+    "img": "https://www.auto-data.net/img/logos/Pagani.png",
+    "link": "https://www.auto-data.net/en/pagani-brand-29"
+  },
+  {
+    "title": "Peugeot",
+    "img": "https://www.auto-data.net/img/logos/Peugeot.png",
+    "link": "https://www.auto-data.net/en/peugeot-brand-49"
+  },
+  {
+    "title": "Porsche",
+    "img": "https://www.auto-data.net/img/logos/Porsche.png",
+    "link": "https://www.auto-data.net/en/porsche-brand-64"
+  },
+  {
+    "title": "RAM",
+    "img": "https://www.auto-data.net/img/logos/RAM.png",
+    "link": "https://www.auto-data.net/en/ram-brand-240"
+  },
+  {
+    "title": "Renault",
+    "img": "https://www.auto-data.net/img/logos/Renault.png",
+    "link": "https://www.auto-data.net/en/renault-brand-99"
+  },
+  {
+    "title": "Rolls-Royce",
+    "img": "https://www.auto-data.net/img/logos/Rolls-Royce.png",
+    "link": "https://www.auto-data.net/en/rolls-royce-brand-109"
+  },
+  {
+    "title": "Rover",
+    "img": "https://www.auto-data.net/img/logos/Rover.png",
+    "link": "https://www.auto-data.net/en/rover-brand-119"
+  },
+  {
+    "title": "Saab",
+    "img": "https://www.auto-data.net/img/logos/Saab.png",
+    "link": "https://www.auto-data.net/en/saab-brand-124"
+  },
+  {
+    "title": "Seat",
+    "img": "https://www.auto-data.net/img/logos/Seat.png",
+    "link": "https://www.auto-data.net/en/seat-brand-144"
+  },
+  {
+    "title": "Skoda",
+    "img": "https://www.auto-data.net/img/logos/Skoda.png",
+    "link": "https://www.auto-data.net/en/skoda-brand-154"
+  },
+  {
+    "title": "Smart",
+    "img": "https://www.auto-data.net/img/logos/Smart.png",
+    "link": "https://www.auto-data.net/en/smart-brand-164"
+  },
+  {
+    "title": "Subaru",
+    "img": "https://www.auto-data.net/img/logos/Subaru.png",
+    "link": "https://www.auto-data.net/en/subaru-brand-189"
+  },
+  {
+    "title": "Suzuki",
+    "img": "https://www.auto-data.net/img/logos/Suzuki.png",
+    "link": "https://www.auto-data.net/en/suzuki-brand-194"
+  },
+  {
+    "title": "Tesla",
+    "img": "https://www.auto-data.net/img/logos/Tesla.png",
+    "link": "https://www.auto-data.net/en/tesla-brand-197"
+  },
+  {
+    "title": "Toyota",
+    "img": "https://www.auto-data.net/img/logos/Toyota.png",
+    "link": "https://www.auto-data.net/en/toyota-brand-40"
+  },
+  {
+    "title": "Vauxhall",
+    "img": "https://www.auto-data.net/img/logos/Vauxhall.png",
+    "link": "https://www.auto-data.net/en/vauxhall-brand-60"
+  },
+  {
+    "title": "Volkswagen",
+    "img": "https://www.auto-data.net/img/logos/Volkswagen.png",
+    "link": "https://www.auto-data.net/en/volkswagen-brand-80"
+  },
+  {
+    "title": "Volvo",
+    "img": "https://www.auto-data.net/img/logos/Volvo.png",
+    "link": "https://www.auto-data.net/en/volvo-brand-85"
+  },
+  {
+    "title": "All brands",
+    "img": "https://www.auto-data.net/img/logo_sm.png",
+    "link": "https://www.auto-data.net/en/allbrands"
+  }
+]
